@@ -101,10 +101,6 @@ pwd3=Entry(window,show='*',width=30)
 pwd3.place(x=180,y=360)
 pwd3.configure(font=('Arial',15))
 
-while pwd1.get()==pwd3.get():
-   continue
-   
-
 #Submit Button
 btn=Button(window,text='Submit',height=2,width=10,command=show_entry_fields)
 btn.place(x=180,y=410)
