@@ -1,8 +1,47 @@
+import mysql.connector
 from tkinter import *
+
+def Install_Database():
+     try:
+        mydb=mysql.connector.connect(host="localhost",user="root",passwd="root")
+        cursor=mydb.cursor()
+        x=open("Server.sql","r")
+        query = " ".join(x.readlines())
+        cursor.execute(query)
+     except:
+        print("Database Already Exists!")
+        
 def show_entry_fields():
-   x=open("Records.txt","a")
-   x.write("\n\nName: %s\nEmail: %s\nPhone: %s\nAddress line1: %s\nAddress line 2: %s\nPassword: %s"% (txt.get(), txt1.get(), txt2.get(),txt3.get(),txt4.get(), pwd1.get()))
-   x.close()   
+  i=0
+  #Storing Data In The Database
+  mydb=mysql.connector.connect(host="localhost",user="root",passwd="root",database="server")
+  
+  mycursor=mydb.cursor()
+  try:
+     mycursor.execute("select Name from person")
+     result=mycursor.fetchall()
+     
+     #Counts how much no of data is there
+     for line in result:
+        i+=1
+     print(i)
+     
+  except:
+     i=0
+  val=(i+1,str(txt.get()), str(txt1.get()),str(txt2.get()),str(txt3.get()+txt4.get()), str(pwd1.get()))
+  mycursor.execute("insert into person values (%s,%s,%s,%s,%s,%s)",val)
+  mydb.commit()
+  txt.delete(0,END)
+  txt1.delete(0,END)
+  txt2.delete(0,END)
+  txt3.delete(0,END)
+  txt4.delete(0,END)
+  pwd1.delete(0,END)
+  pwd3.delete(0,END)
+  window.destroy()
+  t1=EndPage()
+
+def clean():
    txt.delete(0,END)
    txt1.delete(0,END)
    txt2.delete(0,END)
@@ -11,24 +50,11 @@ def show_entry_fields():
    pwd1.delete(0,END)
    pwd3.delete(0,END)
 
-def clean():
-    txt.delete(0,END)
-    txt1.delete(0,END)
-    txt2.delete(0,END)
-    txt3.delete(0,END)
-    txt4.delete(0,END)
-    pwd1.delete(0,END)
-    pwd3.delete(0,END)
-
 
 window=Tk()
 window.geometry('650x650')
 window.configure(bg='black')
 window.title("Registration Form")
-
-#Photo
-photo1=PhotoImage(file="D:\\Downloads\\Avenger.gif")
-Label(window, image=photo1, bg="black").place(x=0,y=0)
 
 #Name Label
 lbl=Label(window,text="Name:")
@@ -39,7 +65,7 @@ lbl.place(x=90,y=50)
 txt=Entry(window,width=30)
 txt.place(x=180,y=50)
 txt.configure(font=('Arial',15))
-    
+      
 
 #E-mail Label
 lbl1=Label(window,text="E-mail:")
@@ -109,6 +135,7 @@ btn.place(x=180,y=410)
 btn1=Button(window,text='Reset',height=2,width=10,command=clean)
 btn1.place(x=300,y=410)
 
-
-           
+#Setting up database 
+btn2=Button(window,text="Install Database",height=2,width=15,command=Install_Database)
+btn2.place(x=400,y=410)
 
