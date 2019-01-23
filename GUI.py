@@ -1,7 +1,7 @@
 import mysql.connector
 from tkinter import *
 
-def Install_Database():
+def Setup_Database():
      try:
         mydb=mysql.connector.connect(host="localhost",user="root",passwd="root")
         cursor=mydb.cursor()
@@ -136,6 +136,6 @@ btn1=Button(window,text='Reset',height=2,width=10,command=clean)
 btn1.place(x=300,y=410)
 
 #Setting up database 
-btn2=Button(window,text="Install Database",height=2,width=15,command=Install_Database)
+btn2=Button(window,text="Setup Database",height=2,width=15,command=Setup_Database)
 btn2.place(x=400,y=410)
 
