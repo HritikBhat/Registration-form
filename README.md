@@ -4,4 +4,4 @@ Here download and keep both the included files(GUI.py and records.txt) in the sa
 Any improvements will be appreciated.
 
 Requirements:
-            1)Must Have MySQL Server With CLI.
+          1)Must Have MySQL Server With CLI.
