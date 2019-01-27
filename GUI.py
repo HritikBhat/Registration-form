@@ -31,7 +31,7 @@ def main():
    but.place(x=190,y=400)
    but.configure(bg='green')
 
-   but=Button(root,text="Setup",height=3,width=10,command=Install_Database)
+   but=Button(root,text="Setup",height=3,width=10,command=Setup_Database)
    but.place(x=400,y=400)
    but.configure(bg='green')
 
@@ -43,7 +43,7 @@ def main():
    root.mainloop()
 
   
-def Install_Database():
+def Setup_Database():
      try:
         mydb=mysql.connector.connect(host="localhost",user="root",passwd="root")
         cursor=mydb.cursor()
